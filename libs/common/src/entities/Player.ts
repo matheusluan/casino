@@ -5,7 +5,9 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Unique,
+  OneToMany,
 } from 'typeorm';
+import { Role } from './Role';
 
 @Entity('player')
 @Unique(['email'])
@@ -15,6 +17,9 @@ export class Player {
 
   @Column()
   email: string;
+
+  @Column()
+  password: string;
 
   @Column()
   firstName: string;
@@ -30,4 +35,7 @@ export class Player {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => Role, (role) => role.players)
+  roles: Role[];
 }

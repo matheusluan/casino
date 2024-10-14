@@ -1,5 +1,5 @@
 import { Game } from '@app/common/entities/Game';
-import { GenericService } from '@app/common/generic/generic.typeorm.service';
+import { GenericService } from '@app/common/generic/generic.service';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -8,8 +8,8 @@ import { Repository } from 'typeorm';
 export class GameService extends GenericService<Game> {
   constructor(
     @InjectRepository(Game)
-    gameRepository: Repository<Game>,
+    repo: Repository<Game>,
   ) {
-    super(gameRepository);
+    super(repo);
   }
 }
