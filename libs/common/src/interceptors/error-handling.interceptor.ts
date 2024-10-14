@@ -14,8 +14,10 @@ export class ErrorHandlingInterceptor implements NestInterceptor {
     return next.handle().pipe(
       catchError((error) => {
         if (error?.detail) {
+          console.log(error);
           throw new InternalServerErrorException(error.detail);
         }
+        console.log(error);
         throw new InternalServerErrorException(error.message || error);
       }),
     );
