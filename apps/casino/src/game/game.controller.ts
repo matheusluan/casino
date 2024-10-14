@@ -1,12 +1,12 @@
 import { Controller, Get } from '@nestjs/common';
 import { GameService } from './game.service';
 
-@Controller('game')
+@Controller('games')
 export class GameController {
   constructor(private readonly gameService: GameService) {}
 
-  @Get('/getAll')
+  @Get()
   getAll() {
-    return this.gameService.getAll();
+    return this.gameService.find();
   }
 }

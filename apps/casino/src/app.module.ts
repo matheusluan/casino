@@ -1,8 +1,15 @@
 import { Module } from '@nestjs/common';
+import { getDbConfig } from '@app/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { GameModule } from './game/game.module';
 
 @Module({
-  imports: [GameModule],
+  imports: [
+    TypeOrmModule.forRootAsync({
+      useFactory: async () => getDbConfig('casino'),
+    }),
+    GameModule,
+  ],
   controllers: [],
   providers: [],
 })
