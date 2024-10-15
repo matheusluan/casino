@@ -5,12 +5,10 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   Unique,
-  JoinTable,
-  ManyToMany,
   OneToMany,
 } from 'typeorm';
+import { StaffRoles } from './StaffRoles';
 import { Role } from './Role';
-
 @Entity('staff')
 @Unique(['email'])
 export class Staff {
@@ -38,17 +36,6 @@ export class Staff {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @ManyToMany(() => Role)
-  @JoinTable({
-    name: 'staff_roles',
-    joinColumn: {
-      name: 'staff_id',
-      referencedColumnName: 'id',
-    },
-    inverseJoinColumn: {
-      name: 'role_id',
-      referencedColumnName: 'id',
-    },
-  })
-  roles: Role[];
+  @OneToMany(() => StaffRoles, (staffRoles) => staffRoles.role)
+  staffRoles?: Role[];
 }

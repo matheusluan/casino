@@ -4,7 +4,9 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { StaffRoles } from './StaffRoles';
 
 @Entity('role')
 export class Role {
@@ -19,4 +21,7 @@ export class Role {
 
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => StaffRoles, (staffRoles) => staffRoles.roleId)
+  staffRoles?: StaffRoles[];
 }

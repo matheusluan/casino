@@ -3,19 +3,18 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { In, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
-import { Staff } from '@app/common/entities/Staff';
 import { CreateStaffBody } from '@app/common/dtos/staff-requests';
+
+import { Staff } from '@app/common/entities/Staff';
+import { RoleService } from '../role/role.service';
 import { GenericService } from '@app/common/generic/generic.service';
-import { Role } from '@app/common/entities/Role';
 
 @Injectable()
 export class StaffService extends GenericService<Staff> {
   constructor(
     @InjectRepository(Staff)
     repo: Repository<Staff>,
-
-    @InjectRepository(Role)
-    private readonly roleRepository: Repository<Role>,
+    private readonly roleService: RoleService,
   ) {
     super(repo);
   }
@@ -25,14 +24,16 @@ export class StaffService extends GenericService<Staff> {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const rolesEntities = await this.roleRepository.findBy({
-      id: In(roles),
+    const rolesEntities = await this.roleService.find({
+      where: {
+        id: In(roles),
+      },
     });
 
     const staff = this.repository.create({
       ...rest,
+      staffRoles: rolesEntities,
       password: hashedPassword,
-      roles: rolesEntities,
     });
 
     return this.repository.save(staff);

@@ -4,6 +4,7 @@ import { Game } from '@app/common/entities/Game';
 import { Player } from '@app/common/entities/player';
 import { Role } from '@app/common/entities/Role';
 import { Staff } from '@app/common/entities/Staff';
+import { StaffRoles } from '@app/common/entities/StaffRoles';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 export const getDbConfig = (conn: string): TypeOrmModuleOptions => {
@@ -16,7 +17,7 @@ export const getDbConfig = (conn: string): TypeOrmModuleOptions => {
         username: 'postgres',
         password: 'postgres',
         database: 'mydatabase',
-        entities: [Game, Staff, Role, Player],
+        entities: [Game, Staff, Role, Player, StaffRoles],
         synchronize: true,
         autoLoadEntities: true,
       };
@@ -28,7 +29,7 @@ export const getDbConfig = (conn: string): TypeOrmModuleOptions => {
         username: 'postgres',
         password: 'postgres',
         database: 'mydatabase',
-        entities: [Game, Staff, Role, Player],
+        entities: [Game, Staff, Role, Player, StaffRoles],
         synchronize: true,
         autoLoadEntities: true,
       };
