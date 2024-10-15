@@ -6,6 +6,7 @@ import * as bcrypt from 'bcrypt';
 import { Staff } from '@app/common/entities/Staff';
 import { CreateStaffBody } from '@app/common/dtos/staff-requests';
 import { GenericService } from '@app/common/generic/generic.service';
+import { Role } from '@app/common/entities/Role';
 
 @Injectable()
 export class StaffService extends GenericService<Staff> {
@@ -24,7 +25,6 @@ export class StaffService extends GenericService<Staff> {
 
     const staff = await this.repository.create({
       ...rest,
-      roles: roles,
       password: hashedPassword,
     });
 

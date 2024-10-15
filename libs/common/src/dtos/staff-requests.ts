@@ -19,5 +19,5 @@ export class CreateStaffBody {
   lastName: string;
 
   @IsNotEmpty()
-  roles: Role[];
+  roles: number[];
 }
