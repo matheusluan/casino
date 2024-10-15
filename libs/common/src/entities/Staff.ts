@@ -38,6 +38,17 @@ export class Staff {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToMany(() => Role, (role) => role.staffs)
+  @ManyToMany(() => Role)
+  @JoinTable({
+    name: 'staff_roles',
+    joinColumn: {
+      name: 'staff_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'role_id',
+      referencedColumnName: 'id',
+    },
+  })
   roles: Role[];
 }

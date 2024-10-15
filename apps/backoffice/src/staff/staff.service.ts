@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 import { Staff } from '@app/common/entities/Staff';
@@ -13,6 +13,9 @@ export class StaffService extends GenericService<Staff> {
   constructor(
     @InjectRepository(Staff)
     repo: Repository<Staff>,
+
+    @InjectRepository(Role)
+    private readonly roleRepository: Repository<Role>,
   ) {
     super(repo);
   }
@@ -20,14 +23,18 @@ export class StaffService extends GenericService<Staff> {
   public async createWithRoles(body: CreateStaffBody): Promise<Staff> {
     const { password, roles, ...rest } = body;
 
-    //Encript password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const staff = await this.repository.create({
-      ...rest,
-      password: hashedPassword,
+    const rolesEntities = await this.roleRepository.findBy({
+      id: In(roles),
     });
 
-    return staff;
+    const staff = this.repository.create({
+      ...rest,
+      password: hashedPassword,
+      roles: rolesEntities,
+    });
+
+    return this.repository.save(staff);
   }
 }

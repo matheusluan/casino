@@ -1,6 +1,4 @@
 import { IsNotEmpty, IsString } from 'class-validator';
-import { Role } from '../entities/Role';
-
 export class CreateStaffBody {
   @IsNotEmpty()
   @IsString()

@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
   Unique,
   OneToMany,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
 import { Role } from './Role';
 
@@ -36,6 +38,17 @@ export class Player {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToMany(() => Role, (role) => role.players)
+  @ManyToMany(() => Role)
+  @JoinTable({
+    name: 'player_roles',
+    joinColumn: {
+      name: 'player_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'role_id',
+      referencedColumnName: 'id',
+    },
+  })
   roles: Role[];
 }
