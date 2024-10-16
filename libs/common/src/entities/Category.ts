@@ -1,30 +1,31 @@
+// Packages
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
+  OneToMany,
+  Unique,
   CreateDateColumn,
   UpdateDateColumn,
-  Unique,
-  OneToMany,
 } from 'typeorm';
+
+// Models
+import { Game } from './Game';
 import { GameCategory } from './GameCategory';
 
-@Entity('game')
+@Entity({ name: 'categories' })
 @Unique(['code'])
-export class Game {
+export class Category {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  code: string;
 
   @Column()
   name: string;
 
   @Column()
-  thumbnail: string;
+  code: string;
 
-  @Column({ default: false })
+  @Column('boolean', { default: false })
   isActive: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -33,9 +34,11 @@ export class Game {
   @UpdateDateColumn({ type: 'timestamp' })
   updatedAt: Date;
 
+  games: Game[];
+
   @OneToMany(
     () => GameCategory,
-    (gameCategories: GameCategory) => gameCategories.game,
+    (gameCategories: GameCategory) => gameCategories.category,
   )
   gameCategories?: GameCategory[];
 }

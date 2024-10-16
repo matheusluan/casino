@@ -84,6 +84,10 @@ export class GenericService<T extends ObjectLiteral>
     return this.repository.find(options);
   }
 
+  public async insertMany(dto: Array<Partial<T>>): Promise<InsertResult> {
+    return this.repository.insert(dto);
+  }
+
   async runInTransaction<U>(
     work: (manager: EntityManager) => Promise<U>,
   ): Promise<U> {

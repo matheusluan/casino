@@ -1,6 +1,8 @@
 //Config for TypeORM
 
+import { Category } from '@app/common/entities/Category';
 import { Game } from '@app/common/entities/Game';
+import { GameCategory } from '@app/common/entities/GameCategory';
 import { Player } from '@app/common/entities/player';
 import { Role } from '@app/common/entities/Role';
 import { Staff } from '@app/common/entities/Staff';
@@ -17,7 +19,15 @@ export const getDbConfig = (conn: string): TypeOrmModuleOptions => {
         username: 'postgres',
         password: 'postgres',
         database: 'mydatabase',
-        entities: [Game, Staff, Role, Player, StaffRoles],
+        entities: [
+          Game,
+          Staff,
+          Role,
+          Player,
+          StaffRoles,
+          Category,
+          GameCategory,
+        ],
         synchronize: true,
         autoLoadEntities: true,
       };
@@ -29,7 +39,15 @@ export const getDbConfig = (conn: string): TypeOrmModuleOptions => {
         username: 'postgres',
         password: 'postgres',
         database: 'mydatabase',
-        entities: [Game, Staff, Role, Player, StaffRoles],
+        entities: [
+          Game,
+          Staff,
+          Role,
+          Player,
+          StaffRoles,
+          Category,
+          GameCategory,
+        ],
         synchronize: true,
         autoLoadEntities: true,
       };

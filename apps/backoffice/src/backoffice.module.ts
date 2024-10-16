@@ -7,6 +7,7 @@ import { ErrorHandlingInterceptor } from '@app/common/interceptors/error-handlin
 import { GameModule } from './game/game.module';
 import { RoleModule } from './role/role.module';
 import { StaffModule } from './staff/staff.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { StaffModule } from './staff/staff.module';
     GameModule,
     StaffModule,
     RoleModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [
