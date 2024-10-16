@@ -3,7 +3,7 @@
 import { Category } from '@app/common/entities/Category';
 import { Game } from '@app/common/entities/Game';
 import { GameCategory } from '@app/common/entities/GameCategory';
-import { Player } from '@app/common/entities/player';
+import { Player } from '@app/common/entities/Player';
 import { Role } from '@app/common/entities/Role';
 import { Staff } from '@app/common/entities/Staff';
 import { StaffRoles } from '@app/common/entities/StaffRoles';
