@@ -20,4 +20,9 @@ export class PlayerController {
   async getCount() {
     return await this.service.count();
   }
+
+  @Get('/last')
+  async getLast() {
+    return await this.service.find({ order: { createdAt: 'desc' }, take: 5 });
+  }
 }
