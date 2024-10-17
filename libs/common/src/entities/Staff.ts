@@ -6,9 +6,11 @@ import {
   UpdateDateColumn,
   Unique,
   OneToMany,
+  BeforeInsert,
 } from 'typeorm';
 import { StaffRoles } from './StaffRoles';
 import { Role } from './Role';
+import { hash } from 'bcrypt';
 @Entity('staff')
 @Unique(['email'])
 export class Staff {
@@ -22,12 +24,9 @@ export class Staff {
   password: string;
 
   @Column()
-  firstName: string;
+  name: string;
 
-  @Column()
-  lastName: string;
-
-  @Column({ default: false })
+  @Column({ default: true })
   isActive: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -38,4 +37,9 @@ export class Staff {
 
   @OneToMany(() => StaffRoles, (staffRoles) => staffRoles.role)
   staffRoles?: Role[];
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await hash(this.password, 10);
+  }
 }

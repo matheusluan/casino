@@ -1,21 +1,29 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+
 export class CreateStaffBody {
   @IsNotEmpty()
   @IsString()
+  name: string;
+
+  @IsString()
+  @IsNotEmpty()
   email: string;
 
-  @IsNotEmpty()
   @IsString()
+  @IsNotEmpty()
   password: string;
 
   @IsString()
   @IsNotEmpty()
-  firstName: string;
+  confirmPassword: string;
+}
+
+export class LoginStaffBody {
+  @IsString()
+  @IsNotEmpty()
+  email: string;
 
   @IsString()
   @IsNotEmpty()
-  lastName: string;
-
-  @IsNotEmpty()
-  roles: number[];
+  password: string;
 }

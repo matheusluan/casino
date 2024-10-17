@@ -18,24 +18,4 @@ export class StaffService extends GenericService<Staff> {
   ) {
     super(repo);
   }
-
-  public async createWithRoles(body: CreateStaffBody): Promise<Staff> {
-    const { password, roles, ...rest } = body;
-
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    const rolesEntities = await this.roleService.find({
-      where: {
-        id: In(roles),
-      },
-    });
-
-    const staff = this.repository.create({
-      ...rest,
-      staffRoles: rolesEntities,
-      password: hashedPassword,
-    });
-
-    return this.repository.save(staff);
-  }
 }

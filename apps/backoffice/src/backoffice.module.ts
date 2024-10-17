@@ -8,6 +8,7 @@ import { GameModule } from './game/game.module';
 import { RoleModule } from './role/role.module';
 import { StaffModule } from './staff/staff.module';
 import { CategoryModule } from './category/category.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { CategoryModule } from './category/category.module';
     StaffModule,
     RoleModule,
     CategoryModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [
