@@ -9,6 +9,7 @@ import { RoleModule } from './role/role.module';
 import { StaffModule } from './staff/staff.module';
 import { CategoryModule } from './category/category.module';
 import { AuthModule } from './auth/auth.module';
+import { PlayerModule } from './player/player.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { AuthModule } from './auth/auth.module';
     RoleModule,
     CategoryModule,
     AuthModule,
+    PlayerModule
   ],
   controllers: [],
   providers: [

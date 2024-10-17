@@ -84,6 +84,11 @@ export class GenericService<T extends ObjectLiteral>
     return this.repository.find(options);
   }
 
+  public async count(options?: FindManyOptions<T>): Promise<{ total: number }> {
+    const [, total] = await this.repository.findAndCount(options);
+    return { total };
+  }
+
   public async insertMany(dto: Array<Partial<T>>): Promise<InsertResult> {
     return this.repository.insert(dto);
   }

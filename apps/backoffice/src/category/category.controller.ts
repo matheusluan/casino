@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { CategoryService } from './category.service';
 
 import {
@@ -6,7 +14,9 @@ import {
   CreateCategoryWithGamesBody,
   UpdateCategoryBody,
 } from '@app/common/dtos/category-requests';
+import { AuthGuard } from '../auth/auth.guard';
 
+@UseGuards(AuthGuard)
 @Controller('category')
 export class CategoryController {
   constructor(private readonly service: CategoryService) {}
