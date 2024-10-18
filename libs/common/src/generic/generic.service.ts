@@ -7,6 +7,7 @@ import {
   FindOneOptions,
   FindOptionsWhere,
   InsertResult,
+  Like,
   ObjectLiteral,
   QueryRunner,
   Repository,
@@ -14,6 +15,7 @@ import {
   UpdateResult,
 } from 'typeorm';
 import { UpsertOptions } from 'typeorm/repository/UpsertOptions.js';
+import { PaginateDto, PaginateResponse } from '../dtos/paginate-dto';
 
 interface IGenericService<T> {
   create(dto: DeepPartial<T>): Promise<T>;
@@ -82,6 +84,30 @@ export class GenericService<T extends ObjectLiteral>
 
   public async find(options?: FindManyOptions<T>): Promise<T[]> {
     return this.repository.find(options);
+  }
+
+  public async paginate(
+    paginateDto: PaginateDto,
+    options?: FindManyOptions<T>,
+  ): Promise<PaginateResponse<T>> {
+    const { page, limit } = paginateDto;
+
+    const skip = (page - 1) * limit;
+    const take = limit;
+
+    const [items, total] = await this.repository.findAndCount({
+      skip,
+      take,
+      ...options,
+    });
+
+    return {
+      data: items,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   public async count(options?: FindManyOptions<T>): Promise<{ total: number }> {

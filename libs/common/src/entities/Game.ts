@@ -22,7 +22,7 @@ export class Game {
   name: string;
 
   @Column()
-  thumbnail: string;
+  thumbnail?: string;
 
   @Column({ default: false })
   isActive: boolean;

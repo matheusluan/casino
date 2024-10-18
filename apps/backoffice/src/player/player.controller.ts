@@ -2,9 +2,10 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { PlayerService } from './player.service';
 import { AuthGuard } from '../auth/auth.guard';
+import { PaginateDto } from '@app/common/dtos/paginate-dto';
 
 @UseGuards(AuthGuard)
 @Controller('player')
@@ -12,8 +13,8 @@ export class PlayerController {
   constructor(private readonly service: PlayerService) {}
 
   @Get()
-  async getAll() {
-    return await this.service.find();
+  async get(@Query() paginateDto: PaginateDto) {
+    return await this.service.paginate(paginateDto);
   }
 
   @Get('/count')
@@ -22,7 +23,10 @@ export class PlayerController {
   }
 
   @Get('/last')
-  async getLast() {
-    return await this.service.find({ order: { createdAt: 'desc' }, take: 5 });
+  async getLast(@Query() paginateDto: PaginateDto) {
+    return await this.service.paginate(paginateDto, {
+      order: { createdAt: 'desc' },
+      take: 5,
+    });
   }
 }

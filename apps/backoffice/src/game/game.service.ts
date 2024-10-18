@@ -1,3 +1,4 @@
+import { PaginateDto } from '@app/common/dtos/paginate-dto';
 import { Game } from '@app/common/entities/Game';
 import { GenericService } from '@app/common/generic/generic.service';
 import { Injectable } from '@nestjs/common';
